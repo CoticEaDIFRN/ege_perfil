@@ -20,7 +20,7 @@
                     <v-card class="elevation-12" style="max-width:85%;width:50em;border-top:2px solid LightGray">
                       <v-card-title primary-title class="mt-5">
                         <div style="width:100%">
-                          <h3 dark class="headline mb-0 mt-3">Nome do aluno</h3>
+                          <h3 dark class="headline mb-0 m-4">{{request.session.ege.user.presentation_name}}</h3>
                           <div class="d-flex row align-center justify-content-around mt-3">
                             <div>
                               <h5>Matrícula</h5>
@@ -28,11 +28,11 @@
                             </div>
                             <div>
                               <h5>Pólo</h5>
-                              <p>Apodi</p>
+                              <p>{{request.session.ege.user.polo}}</p>
                             </div>
                             <div>
                               <h5>Campus</h5>
-                              <p>EAD</p>
+                              <p>{{request.session.ege.user.campus}}</p>
                             </div>
                           </div>
                         </div>
