@@ -39,8 +39,7 @@ DEBUG_TOOLBAR_CONFIG = {
 # Apps
 MY_APPS = env_as_list('MY_APPS', 'ege_perfil,ege_django_auth_jwt,ege_django_theme')
 DEV_APPS = env_as_list('DEV_APPS', 'debug_toolbar,django_extensions' if DEBUG else '')
-# THIRD_APPS = env_as_list('THIRD_APPS', 'ege_django_theme')
-THIRD_APPS = env_as_list('THIRD_APPS', '')
+THIRD_APPS = env_as_list('THIRD_APPS', 'rest_framework')
 DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
                                          'django.contrib.auth,'
                                          'django.contrib.contenttypes,'
@@ -125,3 +124,20 @@ EGE_ACESSO_JWT_SECRET = env("EGE_ACESSO_JWT_SECRET", '_EGE_ACESSO_JWT_SECRET_')
 EGE_ACESSO_BACKEND = env("EGE_ACESSO_BACKEND", 'ege_django_auth_jwt.backends.PreExistentUserJwtBackend')
 
 AUTH_USER_MODEL = env("DJANGO_AUTH_USER_MODEL", 'ege_perfil.Profile')
+
+# REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'ege_django_auth_jwt.authentication.SecretDelegateAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ],
+    # 'DEFAULT_FILTER_BACKENDS': 'cnes.apiutils.APIFilterBackend',
+}
