@@ -37,7 +37,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 
 # Apps
-MY_APPS = env_as_list('MY_APPS', 'ege_perfil,ege_django_auth_jwt,ege_django_theme')
+MY_APPS = env_as_list('MY_APPS', 'ege_perfil,ege_auth_jwt,ege_theme')
 DEV_APPS = env_as_list('DEV_APPS', 'debug_toolbar,django_extensions' if DEBUG else '')
 THIRD_APPS = env_as_list('THIRD_APPS', 'rest_framework')
 DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
@@ -121,7 +121,7 @@ EGE_ACESSO_JWT_VALIDATE = env("EGE_ACESSO_JWT_VALIDATE", 'http://acesso:8000/ege
 EGE_ACESSO_JWT_LOGOUT = env("EGE_ACESSO_JWT_LOGOUT", 'http://acesso:8000/ege/acesso/logout/')
 EGE_ACESSO_JWT_CLIENT_ID = env("EGE_ACESSO_JWT_CLIENT_ID", '_EGE_ACESSO_JWT_CLIENT_ID_')
 EGE_ACESSO_JWT_SECRET = env("EGE_ACESSO_JWT_SECRET", '_EGE_ACESSO_JWT_SECRET_')
-EGE_ACESSO_BACKEND = env("EGE_ACESSO_BACKEND", 'ege_django_auth_jwt.backends.PreExistentUserJwtBackend')
+EGE_AUTH_JWT_BACKEND = env("EGE_AUTH_JWT_BACKEND", 'ege_auth_jwt.backends.PreExistentUserJwtBackend')
 
 AUTH_USER_MODEL = env("DJANGO_AUTH_USER_MODEL", 'ege_perfil.Profile')
 
@@ -133,7 +133,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'ege_django_auth_jwt.authentication.SecretDelegateAuthentication',
+        'ege_auth_jwt.authentication.SecretDelegateAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [

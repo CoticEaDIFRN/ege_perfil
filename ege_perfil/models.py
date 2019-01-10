@@ -27,7 +27,7 @@ from django.db.models import Model, CharField, TextField, NullBooleanField, File
 from django.db.models import ManyToManyField
 from django.contrib.auth.models import AbstractUser
 from python_brfied import to_choice
-import ege_django_theme
+import ege_theme
 
 
 class SpecialNeed(Model):
@@ -66,7 +66,7 @@ class Profile(AbstractUser):
     approved_by = CharField(_('approved by'), max_length=250, blank=True, null=True)
 
     font_size = SmallIntegerField(_('font size'), blank=True, null=True)
-    theme_skin = CharField(_('theme skin'), choices=ege_django_theme.skins, max_length=250, blank=True, null=True)
+    theme_skin = CharField(_('theme skin'), choices=ege_theme.skins, max_length=250, blank=True, null=True)
     legends = NullBooleanField(_('legends'), blank=True, null=True)
     sign_language = NullBooleanField(_('sign language'), blank=True, null=True)
     screen_reader = NullBooleanField(_('screen reader'), blank=True, null=True)
