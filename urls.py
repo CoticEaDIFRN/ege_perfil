@@ -21,7 +21,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from django.urls import path, include
-# from ege_auth_jwt.sites import ege_admin_site
+from ege_auth_jwt.sites import ege_admin_site
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -36,7 +36,7 @@ urlpatterns = [
                 path('logout/', jwt_logout, name='logout'),
                 path('', include('ege_perfil.urls')),
                 path('', include('ege_auth_jwt.urls', namespace='ege_auth_jwt')),
-                # path('admin/', ege_admin_site.urls),
+                path('admin/', ege_admin_site.urls),
             ]
         )
     ),
