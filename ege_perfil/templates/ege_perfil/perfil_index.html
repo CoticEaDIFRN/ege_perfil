@@ -1,7 +1,11 @@
 {% extends "admin/base_site.html" %}
 {% load i18n static %}
 
-{% block title %}Perffil de {{ ege.user.presentation_name|safe }}{% endblock %}
+{% block title %}Perfil{% endblock %}
+
+{% block page-title %}
+    <a href="{% url 'admin:index' %}">Perfil de {{ ege.user.presentation_name|safe }}</a>
+{% endblock %}
 
 {% block left_menu %}{% endblock %}
 
