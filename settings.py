@@ -70,7 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'ege_perfil.context_processors.ege',
+                'ege_utils.context_processors.ege',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
