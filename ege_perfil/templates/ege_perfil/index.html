@@ -1,7 +1,11 @@
 {% extends "admin/base_site.html" %}
 {% load i18n static %}
 
-{% block title %}Perffil de {{ request.session.ege.user.presentation_name|safe }}{% endblock %}
+{% block title %}Perfil{% endblock %}
+
+{% block page-title %}
+    <a href="{% url 'admin:index' %}">Perfil de {{ ege.user.presentation_name|safe }}</a>
+{% endblock %}
 
 {% block left_menu %}{% endblock %}
 
@@ -15,24 +19,24 @@
                     <img
                       :src="photo_user"
                       class="elevation-6"
-                      style="z-index:1; position:relative; width: 15%; top: 5em; border-radius:50%; flex:0 !important"
+                      style="background-color:#fff; z-index:1; position:relative; width: 15%; top: 5em; border-radius:50%; flex:0 !important"
                     >
                     <v-card class="elevation-12" style="max-width:85%;width:50em;border-top:2px solid LightGray">
                       <v-card-title primary-title class="mt-5">
                         <div style="width:100%">
-                          <h3 dark class="headline mb-0 m-4">{{request.session.ege.user.presentation_name}}</h3>
-                          <div class="d-flex row align-center justify-content-around mt-3">
+                          <h3 dark class="headline mb-0 m-4">{{ege.user.presentation_name}}</h3>
+                          <div class="d-flex flex-column flex-md-row align-baseline align-md-center justify-content-around mt-3 text-left text-md-center ml-3 ml-md-0">
                             <div>
                               <h5>Matrícula</h5>
                               <p>0000.0000.000-00</p>
                             </div>
-                            <div>
+                            <div v-if="{{ege.user.polo}} != null">
                               <h5>Pólo</h5>
-                              <p>{{request.session.ege.user.polo}}</p>
+                              <p>{{ege.user.polo}}</p>
                             </div>
-                            <div>
+                            <div v-if="{{ege.user.campus}} != null">
                               <h5>Campus</h5>
-                              <p>{{request.session.ege.user.campus}}</p>
+                              <p>{{ege.user.campus}}</p>
                             </div>
                           </div>
                         </div>
@@ -88,9 +92,9 @@
 
                         <div style="width:100%">
                           <div class="d-flex row align-center m-3">
-                            <div class="text-left">
+                            <div class="text-left w-100">
                               <h5>Cursos inscritos</h5>
-                              <v-card class="mt-2 w-75">
+                              <v-card class="mt-2">
                                 <v-card-title>
                                   <div style="width:100%">
                                     <p dark>Tecnologia e Desenvolvimento de Software</p>
@@ -110,7 +114,7 @@
                                 </v-card-title>
                               </v-card>
 
-                              <v-card class="mt-2 w-75">
+                              <v-card class="mt-2">
                                 <v-card-title>
                                   <div style="width:100%">
                                     <p dark>Gestão Ambiental</p>
@@ -138,44 +142,6 @@
             </v-content>
           </v-app>
     </div>
-    {% comment %}
-        <div id="1perfil">
-            <div>
-                <h3 class="headline mb-0 mt-3">{{request.session.ege.user.presentation_name}}</h3>
-                <p>${ nome }</p>
-
-                <dl>
-                    <dt>Matrícula</dt>
-                    <dd>{{request.session.ege.user.username}}</dd>
-                    <div v-if="see"><dt>Campus</dt><dd>{{request.session.ege.user.campus}}</dd></div>
-                    <div v-if="see">
-                        <dt>Polo</dt>
-                        <dd>{{request.session.ege.user.polo}}</dd>
-                    </div>
-                    <div v-if="see"><dt>Bibliografia</dt><dd>{{request.session.ege.profile.bibliografia}}</dd></div>
-                    <div v-if="see">
-                        <dt>Necessidades especiais</dt>
-                        <!--
-                        <dd>
-                            <ul v-for="ne in ege.profile.necessidades_especiais">
-                                <li>{{ne.titulo}} = {{ne.publico}}</li>
-                            </ul>
-                        </dd>
-                        -->
-                    </div>
-                </dl>
-            </div>
-            <!-- Este aqui acho bom ser via AJAX
-            Diários no Moodle (só para alunos)
-               Nome do componente curricular
-               Código do diário
-               Nota final (caso exista)
-            -->
-            <p>Caso queiras, podes <a href='./logout/'>sair</a>.</p>
-        </div>
-    {% endcomment %}
-
-
 {% endblock %}
 
 {% block javascript %}
