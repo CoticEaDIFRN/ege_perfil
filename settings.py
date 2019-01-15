@@ -19,8 +19,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from python_brfied.env import env, env_as_bool, env_as_list
 
-# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
 # Development
 DEBUG = env_as_bool('DJANGO_DEBUG', True)
 LOGGING = {
