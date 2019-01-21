@@ -19,8 +19,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from .models import SpecialNeed
-from .serializers import SpecialNeedSerializer
+from .models import SpecialNeed, Profile
+from .serializers import SpecialNeedSerializer, ProfileSerializer
 
 
 class BaseModelService(ReadOnlyModelViewSet):
@@ -30,3 +30,8 @@ class BaseModelService(ReadOnlyModelViewSet):
 class SpecialNeedService(BaseModelService):
     queryset = SpecialNeed.objects.all()
     serializer_class = SpecialNeedSerializer
+
+
+class ProfileService(BaseModelService):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer

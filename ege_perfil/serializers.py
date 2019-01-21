@@ -17,7 +17,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer
 from .models import Profile, SpecialNeed
 
 
@@ -27,9 +27,7 @@ class SpecialNeedSerializer(ModelSerializer):
         fields = '__all__'
 
 
-# class ProfileSerializer(HyperlinkedModelSerializer):
-#     class Meta:
-#         model = Profile
-#         fields = ('username', 'cpf', 'is_active', 'presentation_name', 'civil_name', 'social_name', 'campus',
-#                   'campus_code', 'department', 'title', 'carrer', 'job', 'polo', 'polo_code', 'course', 'course_code',
-#                   'email', 'enterprise_email', 'academic_email', 'scholar_email', 'photo_url')
+class ProfileSerializer(HyperlinkedModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'

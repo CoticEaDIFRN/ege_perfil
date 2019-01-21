@@ -22,12 +22,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from django.urls import path, include
 from rest_framework import routers
-from .services import SpecialNeedService
+from .services import ProfileService, SpecialNeedService
 from .views import perfil_index
 
 
 router = routers.DefaultRouter()
-router.register('special-needs', SpecialNeedService)
+router.register('profile', ProfileService)
 
 
 urlpatterns = [
