@@ -10,8 +10,7 @@
 {% block left_menu %}{% endblock %}
 
 {% block content %}
-    <div id="perfil">
-        {{ ege }}
+    <div id="perfil" data-content="{{ ege.profile }}">
         <v-app id="inspire">
             <v-content style="padding:0">
               <v-container fluid fill-height style="padding:0">
