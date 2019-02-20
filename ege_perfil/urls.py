@@ -20,17 +20,10 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
-from django.urls import path, include
-from rest_framework import routers
-from .services import SpecialNeedService
+from django.urls import path
 from .views import perfil_index
-
-
-router = routers.DefaultRouter()
-router.register('special-needs', SpecialNeedService)
 
 
 urlpatterns = [
     path('', perfil_index),
-    path('api/v1/', include(router.urls)),
 ]

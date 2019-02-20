@@ -38,12 +38,13 @@ DEBUG_TOOLBAR_CONFIG = {
 MY_APPS = env_as_list('MY_APPS', 'ege_perfil,ege_auth_jwt,ege_theme')
 DEV_APPS = env_as_list('DEV_APPS', 'debug_toolbar,django_extensions' if DEBUG else '')
 THIRD_APPS = env_as_list('THIRD_APPS', 'rest_framework')
-DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
-                                         'django.contrib.auth,'
-                                         'django.contrib.contenttypes,'
-                                         'django.contrib.sessions,'
-                                         'django.contrib.messages,'
-                                         'django.contrib.staticfiles')
+DJANGO_APPS = env_as_list('DJANGO_APPS',
+                          'django.contrib.admin,'
+                          'django.contrib.auth,'
+                          'django.contrib.contenttypes,'
+                          'django.contrib.sessions,'
+                          'django.contrib.messages,'
+                          'django.contrib.staticfiles')
 INSTALLED_APPS = MY_APPS + THIRD_APPS + DEV_APPS + DJANGO_APPS
 
 # Middleware
@@ -119,9 +120,9 @@ EGE_ACESSO_JWT_VALIDATE = env("EGE_ACESSO_JWT_VALIDATE", 'http://acesso:8000/ege
 EGE_ACESSO_JWT_LOGOUT = env("EGE_ACESSO_JWT_LOGOUT", 'http://acesso:8000/ege/acesso/logout/')
 EGE_ACESSO_JWT_CLIENT_ID = env("EGE_ACESSO_JWT_CLIENT_ID", '_EGE_ACESSO_JWT_CLIENT_ID_')
 EGE_ACESSO_JWT_SECRET = env("EGE_ACESSO_JWT_SECRET", '_EGE_ACESSO_JWT_SECRET_')
-EGE_AUTH_JWT_BACKEND = env("EGE_AUTH_JWT_BACKEND", 'ege_auth_jwt.backends.PreExistentUserJwtBackend')
+EGE_AUTH_JWT_BACKEND = env("EGE_AUTH_JWT_BACKEND", 'ege_auth_jwt.backends.CreateNewUserJwtBackend')
 
-AUTH_USER_MODEL = env("DJANGO_AUTH_USER_MODEL", 'ege_perfil.Profile')
+# AUTH_USER_MODEL = env("DJANGO_AUTH_USER_MODEL", 'ege_perfil.Profile')
 
 # REST Framework
 REST_FRAMEWORK = {
@@ -140,4 +141,4 @@ REST_FRAMEWORK = {
     # 'DEFAULT_FILTER_BACKENDS': 'cnes.apiutils.APIFilterBackend',
 }
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
