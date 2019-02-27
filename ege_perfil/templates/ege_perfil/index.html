@@ -10,7 +10,7 @@
 {% block left_menu %}{% endblock %}
 
 {% block content %}
-    <div id="perfil" data-content="{{ ege.profile }}">
+    <div id="perfil" data-content="{{ ege.user }}">
         <v-app id="inspire">
             <v-content style="padding:0">
               <v-container fluid fill-height style="padding:0">
@@ -46,8 +46,39 @@
                         <div style="width:100%">
                           <div class="d-flex row align-center m-3">
                             <div class="text-justify">
-                              <h5>Biografia</h5>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque blandit arcu eget consectetur fringilla. Suspendisse potenti. Ut egestas interdum efficitur. Quisque varius tempus dapibus. Quisque iaculis, sapien et condimentum semper, nibh ligula vehicula dolor, nec dapibus ligula ex id libero. Maecenas pulvinar tortor eu suscipit vestibulum. Quisque tristique quis elit a posuere. Sed ac sem mollis, laoreet mi a, pulvinar tellus. Aenean at eros augue. Duis sed lacus quam. Sed dignissim, arcu at laoreet elementum, leo lorem interdum urna, vel laoreet sem orci a diam. Phasellus a nulla a turpis eleifend elementum vel non metus. Aliquam interdum molestie dapibus. Morbi laoreet augue nibh, non venenatis libero tincidunt vel. Donec posuere tortor a ligula consectetur, ut eleifend est scelerisque.</p>
+                                <v-layout align-center justify-space-around>
+                                    <h5>Biografia</h5>
+                                    <v-dialog v-model="dialog_bio" persistent max-width="600px">
+                                        <v-btn slot="activator" outline fab color="blue" style="width: 2.2em;height: 2.2em">
+                                            <v-icon>edit</v-icon>
+                                        </v-btn>
+                                        <v-card>
+                                            <v-card-title>
+                                              <span class="headline">Biografia</span>
+                                            </v-card-title>
+                                            <v-card-text>
+                                              <v-container grid-list-md>
+                                                <v-layout wrap>
+                                                  <v-flex class="">
+                                                    <v-textarea
+                                                      solo
+                                                      full-width
+                                                      value="{{ege.user.biografy}}"
+                                                      dark
+                                                    ></v-textarea>
+                                                  </v-flex>
+                                                </v-layout>
+                                              </v-container>
+                                            </v-card-text>
+                                            <v-card-actions>
+                                              <v-spacer></v-spacer>
+                                              <v-btn color="blue darken-1" flat @click="dialog_bio = false">Close</v-btn>
+                                              <v-btn color="blue darken-1" flat @click="dialog_bio = false">Save</v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
+                                </v-layout>
+                                <p>{{ege.user.biografy}}</p>
                             </div>
                           </div>
                         </div>
@@ -55,37 +86,85 @@
                         <v-divider style="margin:0 25px"></v-divider>
 
                         <div style="width:100%">
-                          <div class="d-flex row align-center m-3">
+                          <div class="d-flex row align-center justify-space-between m-3">
                             <div class="text-left">
-                              <h5>E-mail</h5>
-                              <p class="mt-2">email@email.com</p>
+                                <v-layout align-center justify-space-around>
+                                    <h5>E-mail</h5>
+                                    <v-dialog v-model="dialog_email" persistent max-width="600px">
+                                        <v-btn slot="activator" outline fab color="blue" style="width: 2.2em;height: 2.2em">
+                                            <v-icon>edit</v-icon>
+                                        </v-btn>
+                                        <v-card>
+                                            <v-card-title>
+                                              <span class="headline">Email</span>
+                                            </v-card-title>
+                                            <v-card-text>
+                                              <v-container grid-list-md>
+                                                <v-layout wrap>
+                                                  <v-flex class="">
+                                                    <v-textarea
+                                                      solo
+                                                      full-width
+                                                      value="{{ege.user.personal_email}}"
+                                                      dark
+                                                    ></v-textarea>
+                                                  </v-flex>
+                                                </v-layout>
+                                              </v-container>
+                                            </v-card-text>
+                                            <v-card-actions>
+                                              <v-spacer></v-spacer>
+                                              <v-btn color="blue darken-1" flat @click="dialog_email = false">Close</v-btn>
+                                              <v-btn color="blue darken-1" flat @click="dialog_email = false">Save</v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
+                                </v-layout>
+                                <p class="mt-2">{{ege.user.personal_email}}</p>
+                            </div>
+                            <div class="text-left">
+                                <div><p class="mb-0">Exibir para todos</p></div>
+                                <v-layout align-center justify-space-around>
+                                    <p class="m-0 mr-2">Não</p>
+                                    <v-switch v-model="switch_email"></v-switch>
+                                    <p class="m-0">Sim</p>
+                                </v-layout>
                             </div>
                           </div>
                         </div>
 
                         <v-divider style="margin:0 25px"></v-divider>
 
-                        <div style="width:100%">
-                          <div class="d-flex row align-center m-3">
-                            <div class="text-left">
-                              <h5>Recurso de acessibilidade</h5>
-                              <div style="line-height:1em">
-                                <p class="mb-0 mt-2">Libras</p>
-                                <p style="color:grey">Ativado</p>
+                        <div class="text-right" style="width:100%">
+                          <div class="m-3">
+                              <div class="d-flex row justify-space-between ">
+                                  <div class="text-left ml-3">
+                                      <h5 class="mb-3">Necessidades especiais</h5>
+                                      <div v-if="`${selected}`" class="d-flex row justify-space-between m-3 mb-4">
+                                          <div class="text-left">
+                                              <p v-for="sel in selected" class="m-0">${sel}</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="text-left" v-if="`${selected}`">
+                                    <div><p class="mb-0">Exibir para todos</p></div>
+                                    <v-layout align-center justify-space-around>
+                                        <p class="m-0 mr-2">Não</p>
+                                        <v-switch v-model="switch_needs"></v-switch>
+                                        <p class="m-0">Sim</p>
+                                    </v-layout>
+                                  </div>
                               </div>
-                            </div>
+                              <div class="d-flex row justify-space-around">
+                                  <div class="col-5">
+                                      <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` < `${special_needs.length/2}`" class="m-0 p-0"></v-checkbox>
+                                  </div>
+                                  <div class="col-5">
+                                      <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` >= `${special_needs.length/2}`" class="m-0 p-0"></v-checkbox>
+                                  </div>
+                              </div>
                           </div>
-                        </div>
-
-                        <v-divider style="margin:0 25px"></v-divider>
-
-                        <div style="width:100%">
-                          <div class="d-flex row align-center m-3">
-                            <div class="text-left">
-                              <h5>Necessidades especiais</h5>
-                              <p class="mt-2">Baixa visão</p>
-                            </div>
-                          </div>
+                          <v-btn round outline fab color="primary" style="width: 5em; height: 2em">SALVAR</v-btn>
                         </div>
 
                         <v-divider style="margin:0 25px"></v-divider>
