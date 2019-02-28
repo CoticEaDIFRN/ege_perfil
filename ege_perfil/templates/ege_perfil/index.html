@@ -3,6 +3,8 @@
 
 {% block title %}Perfil{% endblock %}
 
+{% block extrastyle %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+
 {% block page-title %}
     <a href="{% url 'admin:index' %}">Perfil de {{ ege.user.presentation_name|safe }}</a>
 {% endblock %}
@@ -10,7 +12,8 @@
 {% block left_menu %}{% endblock %}
 
 {% block content %}
-    <div id="perfil" data-content="{{ ege.user }}">
+    <div id="perfil">
+        {{ege.user}}
         <v-app id="inspire">
             <v-content style="padding:0">
               <v-container fluid fill-height style="padding:0">
@@ -43,6 +46,7 @@
 
                         <v-divider style="margin:0 25px"></v-divider>
 
+                        <!--BIOGRAFIA-->
                         <div style="width:100%">
                           <div class="d-flex row align-center m-3">
                             <div class="text-justify">
@@ -85,10 +89,11 @@
 
                         <v-divider style="margin:0 25px"></v-divider>
 
+                        <!--EMAIL-->
                         <div style="width:100%">
                           <div class="d-flex row align-center justify-space-between m-3">
                             <div class="text-left">
-                                <v-layout align-center justify-space-around>
+                                <v-layout align-center>
                                     <h5>E-mail</h5>
                                     <v-dialog v-model="dialog_email" persistent max-width="600px">
                                         <v-btn slot="activator" outline fab color="blue" style="width: 2.2em;height: 2.2em">
@@ -135,6 +140,7 @@
 
                         <v-divider style="margin:0 25px"></v-divider>
 
+                        <!--NECESSIDADES ESPECIAIS-->
                         <div class="text-right" style="width:100%">
                           <div class="m-3">
                               <div class="d-flex row justify-space-between ">
@@ -157,10 +163,10 @@
                               </div>
                               <div class="d-flex row justify-space-around">
                                   <div class="col-5">
-                                      <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` < `${special_needs.length/2}`" class="m-0 p-0"></v-checkbox>
+                                      <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` < `${special_needs.length/2}`" class="align-center" style="height: 3em"></v-checkbox>
                                   </div>
                                   <div class="col-5">
-                                      <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` >= `${special_needs.length/2}`" class="m-0 p-0"></v-checkbox>
+                                      <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` >= `${special_needs.length/2}`" class="align-center" style="height: 3em"></v-checkbox>
                                   </div>
                               </div>
                           </div>
