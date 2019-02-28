@@ -13,7 +13,6 @@
 
 {% block content %}
     <div id="perfil">
-        {{ege.user}}
         <v-app id="inspire">
             <v-content style="padding:0">
               <v-container fluid fill-height style="padding:0">
@@ -92,48 +91,70 @@
                         <!--EMAIL-->
                         <div style="width:100%">
                           <div class="d-flex row align-center justify-space-between m-3">
-                            <div class="text-left">
-                                <v-layout align-center>
-                                    <h5>E-mail</h5>
-                                    <v-dialog v-model="dialog_email" persistent max-width="600px">
-                                        <v-btn slot="activator" outline fab color="blue" style="width: 2.2em;height: 2.2em">
-                                            <v-icon>edit</v-icon>
-                                        </v-btn>
-                                        <v-card>
-                                            <v-card-title>
-                                              <span class="headline">Email</span>
-                                            </v-card-title>
-                                            <v-card-text>
-                                              <v-container grid-list-md>
-                                                <v-layout wrap>
-                                                  <v-flex class="">
-                                                    <v-textarea
-                                                      solo
-                                                      full-width
-                                                      value="{{ege.user.personal_email}}"
-                                                      dark
-                                                    ></v-textarea>
-                                                  </v-flex>
-                                                </v-layout>
-                                              </v-container>
-                                            </v-card-text>
-                                            <v-card-actions>
-                                              <v-spacer></v-spacer>
-                                              <v-btn color="blue darken-1" flat @click="dialog_email = false">Close</v-btn>
-                                              <v-btn color="blue darken-1" flat @click="dialog_email = false">Save</v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
+                            <div class="text-left w-100">
+                                <v-layout align-baseline justify-space-between>
+                                    <div class="d-flex align-center">
+                                        <h5>E-mail</h5>
+                                        <v-dialog v-model="dialog_email" persistent max-width="600px">
+                                            <v-btn slot="activator" outline fab color="blue" style="width: 2.2em;height: 2.2em">
+                                                <v-icon>edit</v-icon>
+                                            </v-btn>
+                                            <v-card>
+                                                <v-card-title>
+                                                  <span class="headline">Email</span>
+                                                </v-card-title>
+                                                <v-card-text>
+                                                  <v-container grid-list-md>
+                                                    <v-layout wrap>
+                                                      <v-flex xs12>
+                                                        <v-text-field
+                                                                label="Pessoal"
+                                                                value="{{ege.user.personal_email}}"
+                                                        ></v-text-field>
+                                                      </v-flex>
+                                                      <v-flex xs12>
+                                                        <v-text-field
+                                                                label="Acadêmico"
+                                                                value="{{ege.user.academic_email}}"
+                                                        ></v-text-field>
+                                                      </v-flex>
+                                                      <v-flex xs12>
+                                                        <v-text-field
+                                                                label="Escolar"
+                                                                value="{{ege.user.scholar_email}}"
+                                                        ></v-text-field>
+                                                      </v-flex>
+                                                      <v-flex xs12>
+                                                        <v-text-field
+                                                                label="Corporativo"
+                                                                value="{{ege.user.enterprise_email}}"
+                                                        ></v-text-field>
+                                                      </v-flex>
+                                                    </v-layout>
+                                                  </v-container>
+                                                </v-card-text>
+                                                <v-card-actions>
+                                                  <v-spacer></v-spacer>
+                                                  <v-btn color="blue darken-1" flat @click="dialog_email = false">Close</v-btn>
+                                                  <v-btn color="blue darken-1" flat @click="dialog_email = false">Save</v-btn>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
+                                    </div>
+                                    <div class="text-left">
+                                        <div><p class="mb-0">Exibir para todos</p></div>
+                                        <v-layout align-center justify-space-around>
+                                            <p class="m-0 mr-2">Não</p>
+                                            <v-switch v-model="switch_email"></v-switch>
+                                            <p class="m-0">Sim</p>
+                                        </v-layout>
+                                    </div>
+
                                 </v-layout>
-                                <p class="mt-2">{{ege.user.personal_email}}</p>
-                            </div>
-                            <div class="text-left">
-                                <div><p class="mb-0">Exibir para todos</p></div>
-                                <v-layout align-center justify-space-around>
-                                    <p class="m-0 mr-2">Não</p>
-                                    <v-switch v-model="switch_email"></v-switch>
-                                    <p class="m-0">Sim</p>
-                                </v-layout>
+                                <p>Email pessoal: {{ege.user.personal_email}}</p>
+                                <p>Email acadêmico: {{ege.user.academic_email}}</p>
+                                <p>Email escolar: {{ege.user.scholar_email}}</p>
+                                <p>Email corporativo: {{ege.user.enterprise_email}}</p>
                             </div>
                           </div>
                         </div>
@@ -175,42 +196,27 @@
 
                         <v-divider style="margin:0 25px"></v-divider>
 
+                        <!--CURSOS-->
                         <div style="width:100%">
                           <div class="d-flex row align-center m-3">
                             <div class="text-left w-100">
                               <h5>Cursos inscritos</h5>
-                              <v-card class="mt-2">
-                                <v-card-title>
-                                  <div style="width:100%">
-                                    <p dark>Tecnologia e Desenvolvimento de Software</p>
-                                    <div class="d-flex row align-center ml-1">
-                                      <div>
-                                        <span style="color:grey">0000.0000.000-00</span>
-                                      </div>
-                                      <div>
-                                        <span style="color:grey">Média Final: 9.0</span>
-                                      </div>
-                                    </div>
-                                    <v-progress-linear
-                                      v-model="valueDeterminate_1"
-                                      color="success"
-                                    ></v-progress-linear>
-                                  </div>
-                                </v-card-title>
-                              </v-card>
 
-                              <v-card class="mt-2">
+                              <v-card class="mt-2" v-for="curso in cursos">
                                 <v-card-title>
                                   <div style="width:100%">
-                                    <p dark>Gestão Ambiental</p>
+                                    <p dark>${ curso.nome }</p>
                                     <div class="d-flex row align-center ml-1">
                                       <div>
-                                        <span style="color:grey">0000.0000.000-00</span>
+                                        <span style="color:grey">${ curso.codigo }</span>
+                                      </div>
+                                      <div v-if="curso.media" class="ml-3">
+                                        <span style="color:grey">Média Final: ${ curso.media }</span>
                                       </div>
                                     </div>
                                     <v-progress-linear
-                                      v-model="valueDeterminate_2"
-                                      color="warning"
+                                      v-model="curso.aproveitamento"
+                                      :color="curso.color_bar"
                                     ></v-progress-linear>
                                   </div>
                                 </v-card-title>
