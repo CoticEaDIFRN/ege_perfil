@@ -12,7 +12,8 @@
 {% block left_menu %}{% endblock %}
 
 {% block content %}
-    <div id="perfil">
+    <div id="perfil" data-content="{{ ege.user.username }}">
+        ${ info }
         <v-app id="inspire">
             <v-content style="padding:0">
               <v-container fluid fill-height style="padding:0">
@@ -62,12 +63,12 @@
                                             <v-card-text>
                                               <v-container grid-list-md>
                                                 <v-layout wrap>
-                                                  <v-flex class="">
+                                                  <v-flex>
                                                     <v-textarea
+                                                      id="bio"
                                                       solo
                                                       full-width
                                                       value="{{ege.user.biografy}}"
-                                                      dark
                                                     ></v-textarea>
                                                   </v-flex>
                                                 </v-layout>
@@ -75,8 +76,8 @@
                                             </v-card-text>
                                             <v-card-actions>
                                               <v-spacer></v-spacer>
-                                              <v-btn color="blue darken-1" flat @click="dialog_bio = false">Close</v-btn>
-                                              <v-btn color="blue darken-1" flat @click="dialog_bio = false">Save</v-btn>
+                                              <v-btn color="blue darken-1" flat @click="dialog_bio = false">FECHAR</v-btn>
+                                              <v-btn color="blue darken-1" flat @click="save_bio">SALVAR</v-btn>
                                             </v-card-actions>
                                         </v-card>
                                     </v-dialog>
@@ -135,8 +136,8 @@
                                                 </v-card-text>
                                                 <v-card-actions>
                                                   <v-spacer></v-spacer>
-                                                  <v-btn color="blue darken-1" flat @click="dialog_email = false">Close</v-btn>
-                                                  <v-btn color="blue darken-1" flat @click="dialog_email = false">Save</v-btn>
+                                                  <v-btn color="blue darken-1" flat @click="dialog_email = false">FECHAR</v-btn>
+                                                  <v-btn color="blue darken-1" flat @click="save_email">SALVAR</v-btn>
                                                 </v-card-actions>
                                             </v-card>
                                         </v-dialog>
@@ -202,7 +203,7 @@
                             <div class="text-left w-100">
                               <h5>Cursos inscritos</h5>
 
-                              <v-card class="mt-2" v-for="curso in cursos">
+                              <v-card class="mt-2" v-for="(curso, index) in cursos">
                                 <v-card-title>
                                   <div style="width:100%">
                                     <p dark>${ curso.nome }</p>
@@ -216,7 +217,7 @@
                                     </div>
                                     <v-progress-linear
                                       v-model="curso.aproveitamento"
-                                      :color="curso.color_bar"
+                                      :color="color_bar[index]"
                                     ></v-progress-linear>
                                   </div>
                                 </v-card-title>

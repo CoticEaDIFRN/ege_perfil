@@ -27,30 +27,45 @@ const data = new Vue({
                 nome: 'Tecnologia e Desenvolvimento de Software',
                 codigo: '0000.0000.000-00',
                 media: 7.0,
-                aproveitamento: 70,
-                color_bar: ''
+                aproveitamento: 70
             },
             {
                 nome: 'Matemática financeira',
                 codigo: '0000.0000.000-00',
                 media: 5.0,
-                aproveitamento: 50,
-                color_bar: ''
+                aproveitamento: 50
             },
             {
                 nome: 'Gestão Ambiental',
                 codigo: '0000.0000.000-00',
                 media: null,
-                aproveitamento: 20,
-                color_bar: ''
+                aproveitamento: 20
             }
         ],
+        color_bar: [],
+        info: null
     },
-    mounted: function () {
+    created: function () {
+        let username = document.getElementById('perfil').dataset.content;
         for (let i = 0; i <= this.cursos.length - 1; i++) {
-            if (this.cursos[i].aproveitamento >= 70) { this.cursos[i].color_bar = "success" }
-            else if (this.cursos[i].aproveitamento >= 30 && this.cursos[i].aproveitamento < 70) { this.cursos[i].color_bar = "warning" }
-            else this.cursos[i].color_bar = "error"
+            if (this.cursos[i].aproveitamento >= 70) { this.color_bar[i] = "success" }
+            else if (this.cursos[i].aproveitamento >= 30 && this.cursos[i].aproveitamento < 70) { this.color_bar[i] = "warning" }
+            else this.color_bar[i] = "error"
+        }
+    },
+    methods: {
+        save_bio: function () {
+            let username = document.getElementById('perfil').dataset.content;
+            this.dialog_bio = false;
+            axios({
+              method: 'get',
+              url: 'http://localhost/ege/acesso/api/v1/users/' + username,
+              // data: {
+              //   biografy: document.getElementById('bio').value
+              // }
+            })
+              .then(response => console.log(response.data))
+              .catch(error => console.log(error))
         }
     }
 });
