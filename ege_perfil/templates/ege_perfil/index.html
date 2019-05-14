@@ -12,8 +12,7 @@
 {% block left_menu %}{% endblock %}
 
 {% block content %}
-    <div id="perfil" data-content="{{ ege.user.username }}">
-        ${ info }
+    <div id="perfil" data-content="{{ ege.user.username }}" data-token="{{ token }}">
         <v-app id="inspire">
             <v-content style="padding:0">
               <v-container fluid fill-height style="padding:0">
@@ -162,12 +161,53 @@
 
                         <v-divider style="margin:0 25px"></v-divider>
 
+                        <!--RECURSO DE ACESSIBILIDADE-->
+                        <div class="text-right" style="width:100%">
+                          <div class="m-3">
+                              <div class="d-flex row justify-space-between ">
+                                  <div class="text-left">
+                                      <div class="row align-items-center ml-3">
+                                          <h5>Recurso de acessibilidade</h5>
+                                          <v-btn outline fab color="blue" style="width: 2.2em;height: 2.2em" v-on:click="">
+                                            <v-icon>edit</v-icon>
+                                        </v-btn>
+                                      </div>
+                                      <div v-if="`${selected}`" class="d-flex row justify-space-between m-3 mb-4">
+                                          <div class="text-left">
+                                              <p v-for="sel in selected" class="m-0">${sel}</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div v-if="accessibility">
+                                  <div class="row">
+                                      <div class="col-5">
+                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` < `${special_needs.length/2}`" class="align-center" style="height: 3em"></v-checkbox>
+                                      </div>
+                                      <div class="col-5">
+                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` >= `${special_needs.length/2}`" class="align-center" style="height: 3em"></v-checkbox>
+                                      </div>
+                                  </div>
+                                  <div class="row justify-content-end">
+                                      <v-btn round outline fab color="primary" style="width: 5em; height: 2em">RECONFIGURAR ACESSIBILIDADE</v-btn>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+
+                        <v-divider style="margin:0 25px"></v-divider>
+
                         <!--NECESSIDADES ESPECIAIS-->
                         <div class="text-right" style="width:100%">
                           <div class="m-3">
                               <div class="d-flex row justify-space-between ">
-                                  <div class="text-left ml-3">
-                                      <h5 class="mb-3">Necessidades especiais</h5>
+                                  <div class="text-left">
+                                      <div class="row align-items-center ml-3">
+                                          <h5>Necessidades especiais</h5>
+                                          <v-btn outline fab color="blue" style="width: 2.2em;height: 2.2em" v-on:click="options_needs=!options_needs">
+                                            <v-icon>edit</v-icon>
+                                        </v-btn>
+                                      </div>
                                       <div v-if="`${selected}`" class="d-flex row justify-space-between m-3 mb-4">
                                           <div class="text-left">
                                               <p v-for="sel in selected" class="m-0">${sel}</p>
@@ -183,16 +223,20 @@
                                     </v-layout>
                                   </div>
                               </div>
-                              <div class="d-flex row justify-space-around">
-                                  <div class="col-5">
-                                      <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` < `${special_needs.length/2}`" class="align-center" style="height: 3em"></v-checkbox>
+                              <div v-if="options_needs">
+                                  <div class="row">
+                                      <div class="col-5">
+                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` < `${special_needs.length/2}`" class="align-center" style="height: 3em"></v-checkbox>
+                                      </div>
+                                      <div class="col-5">
+                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` >= `${special_needs.length/2}`" class="align-center" style="height: 3em"></v-checkbox>
+                                      </div>
                                   </div>
-                                  <div class="col-5">
-                                      <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` >= `${special_needs.length/2}`" class="align-center" style="height: 3em"></v-checkbox>
+                                  <div class="row justify-content-end">
+                                      <v-btn round outline fab color="primary" style="width: 5em; height: 2em">SALVAR</v-btn>
                                   </div>
                               </div>
                           </div>
-                          <v-btn round outline fab color="primary" style="width: 5em; height: 2em">SALVAR</v-btn>
                         </div>
 
                         <v-divider style="margin:0 25px"></v-divider>

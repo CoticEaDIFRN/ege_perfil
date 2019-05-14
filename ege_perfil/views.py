@@ -25,10 +25,9 @@ SOFTWARE.
 from django.conf import settings
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-# from .models import Profile
+# from ege_acesso.views.authorize_view import auth_token
 
 
 @login_required
 def perfil_index(request):
-    # request.session["ege"]["profile"] = Profile.username
-    return render(request, template_name='ege_perfil/index.html', context={'login_url': settings.LOGIN_URL})
+    return render(request, template_name='ege_perfil/index.html', context={'login_url': settings.LOGIN_URL,  'token': 123})

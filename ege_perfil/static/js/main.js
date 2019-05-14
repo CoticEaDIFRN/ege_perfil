@@ -9,6 +9,7 @@ const data = new Vue({
         dialog_email: false,
         switch_email: false,
         switch_needs: true,
+        options_needs: false,
         selected: [],
         special_needs: [
             'Autismo',
@@ -22,6 +23,7 @@ const data = new Vue({
             'Perda de memória',
             'Perda de visão e cegueira'
         ],
+        accessibility: false,
         cursos: [
             {
                 nome: 'Tecnologia e Desenvolvimento de Software',
@@ -42,11 +44,9 @@ const data = new Vue({
                 aproveitamento: 20
             }
         ],
-        color_bar: [],
-        info: null
+        color_bar: []
     },
     created: function () {
-        let username = document.getElementById('perfil').dataset.content;
         for (let i = 0; i <= this.cursos.length - 1; i++) {
             if (this.cursos[i].aproveitamento >= 70) { this.color_bar[i] = "success" }
             else if (this.cursos[i].aproveitamento >= 30 && this.cursos[i].aproveitamento < 70) { this.color_bar[i] = "warning" }
@@ -56,16 +56,25 @@ const data = new Vue({
     methods: {
         save_bio: function () {
             let username = document.getElementById('perfil').dataset.content;
+            let token = document.getElementById('perfil').dataset.token;
             this.dialog_bio = false;
+
+            // this.$http.get(`api/v1/users/${username}/`)
+            //     .then(response => console.log(response))
+            //     .catch(error => console.log(error))
+
             axios({
-              method: 'get',
-              url: 'http://localhost/ege/acesso/api/v1/users/' + username,
-              // data: {
-              //   biografy: document.getElementById('bio').value
-              // }
+              method: 'put',
+              url: `http://localhost/ege/acesso/api/v1/users/${username}`,
+              data: {biografy: document.getElementById('bio').value},
+              headers: {
+                Authorization: token
+              }
             })
-              .then(response => console.log(response.data))
-              .catch(error => console.log(error))
+              .then(response => {
+                  console.log(response)
+              })
+                .catch(error => console.log('put error:', error))
         }
     }
 });
