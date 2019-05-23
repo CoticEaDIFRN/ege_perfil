@@ -25,6 +25,7 @@ SOFTWARE.
 from django.conf import settings
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 # from ege_acesso.views.authorize_view import auth_token
 
 
@@ -34,9 +35,9 @@ def perfil_index(request):
         if 'true' in request.COOKIES.get('hide_config'):
             return render(request, template_name='ege_perfil/index.html', context={'login_url': settings.LOGIN_URL})
         else:
-            return render(request, template_name='ege_perfil/painel_acessibilidade.html')
+            return HttpResponseRedirect('/ege/perfil/acessibilidade')
     else:
-        return render(request, template_name='ege_perfil/painel_acessibilidade.html')
+        return HttpResponseRedirect('/ege/perfil/acessibilidade')
 
 
 def conf_acessibilidade(request):
