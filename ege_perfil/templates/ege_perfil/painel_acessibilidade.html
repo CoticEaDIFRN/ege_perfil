@@ -1,0 +1,119 @@
+{% extends "ege_perfil/index.html" %}
+{% load i18n static %}
+
+{% block title %}Acessibilidade{% endblock %}
+
+{% block extrastyle %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+
+{% block page-title %}
+    <a href="/ege/perfil/acessibilidade">Configurações de acessibilidade para necessidades especiais</a>
+{% endblock %}
+
+{% block user_menu_options %}
+    <h5 class="p-4 text-center">
+        {% trans "Welcome, " %}<span class="text-bold">{% firstof ege.user.social_name user.get_username %}!</span>
+    </h5>
+    <a href="/ege/perfil/">Perfil</a>
+{% endblock %}
+
+{% block left_menu %}{% endblock %}
+
+{% block content %}
+    <div id="acessibilidade">
+        <v-app id="inspire" class="flex-column">
+            <h5 class="text-left" style="margin-left: 25px">Configurações de Acessibilidade para Necessidades Especiais</h5>
+            <v-content style="padding:0">
+              <v-container fluid fill-height style="padding:0">
+                <v-layout align-center justify-center column>
+
+                  <v-flex class="row w-100 justify-content-end" v-if="painel_1">
+                      <v-radio-group row v-model="radios" :mandatory="false" style="height: 20em">
+                          <div class="flex-column col">
+                              <!--AUDIO-DESCRIÇÃO-->
+                              <v-card class="elevation-12 m-2 card_check" style="height:50%">
+                                  <v-card-title primary-title>
+                                      <div>
+                                          <h3 class="headline">Ledor de tela</h3>
+                                          <p class="text-left">Esta página é dedicada a identificar que tipo de necessidade especial nossos usuários portam. Se você utiliza ledor de tela, por favor, selecione esta opção e clique em avançar. Você será redirecionado à página inicial do Moodle, adaptada para ledor de tela.</p>
+                                      </div>
+                                  </v-card-title>
+                                  <v-radio class="radio_conf" value="audio_descricao"></v-radio>
+                              </v-card>
+
+                              <!--OUTRO-->
+                              <v-card class="elevation-12 m-2 card_check" style="height:50%">
+                                  <v-card-title primary-title>
+                                      <div>
+                                          <h3 class="headline">Possui outra ou nenhuma necessidade especial</h3>
+                                          <p class="text-left">Se você não precisar de nenhuma dessas opções, selecione esta e clique em avançar.</p>
+                                      </div>
+                                  </v-card-title>
+                                  <v-radio class="radio_conf" value="outro"></v-radio>
+                              </v-card>
+                          </div>
+                          <div class="col">
+                              <!--LIBRAS-->
+                              <v-card class="elevation-12 m-2 card_check" style="height:100%">
+                                  <iframe src="https://www.youtube.com/embed/bA9wCr7YEkE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 100%;height: 90%"></iframe>
+                                  <v-radio class="radio_conf" value="libras"></v-radio>
+                              </v-card>
+                          </div>
+                      </v-radio-group>
+                      <div class="row w-100 justify-content-between" style="height: 4em">
+                          <div class="d-flex flex-row align-items-end">
+                              <v-checkbox v-model="hide_conf"></v-checkbox>
+                              <p>Marque esta opção para pular estas configurações no próximo login, você poderá acessá-las novamente através do menu de usuário</p>
+                          </div>
+                          <v-btn round color="primary" dark style="margin-right: 15px" v-on:click="avancar">Avançar</v-btn>
+                      </div>
+                  </v-flex>
+
+                  <!--PAINEL OUTRAS NECESSIDADES-->
+                  <v-flex class="w-100 justify-content-end mt-5" v-if="!painel_1">
+                      <div class="row">
+                          <div class="col">
+                              <!--BAIXA VISÃO-->
+                              <v-card class="elevation-12 m-2 card_check" style="height: 12em;cursor: pointer">
+                                  <v-card-title primary-title>
+                                      <h3 class="headline">Baixa visão</h3>
+                                      <p class="text-left">Clique aqui se tiver baixa visão.</p>
+                                  </v-card-title>
+                              </v-card>
+                          </div>
+                          <div class="col">
+                              <!--LEGENDAGEM-->
+                              <v-card class="elevation-12 m-2 card_check" style="height: 12em;cursor: pointer">
+                                  <v-card-title primary-title>
+                                      <h3 class="headline">Legendagem</h3>
+                                      <p class="text-left">Clique aqui se precisar deste recurso.</p>
+                                  </v-card-title>
+                              </v-card>
+                          </div>
+                          <div class="col">
+                              <!--CONFIGURAÇÕES DE COR-->
+                              <v-card class="elevation-12 m-2 card_check" style="height: 12em;cursor: pointer">
+                                  <v-card-title primary-title>
+                                      <h3 class="headline">Configurações de cor</h3>
+                                      <p class="text-left">Clique aqui se possuir algum tipo de daltonismo, fotofobia ou desconforto com alguma cor.</p>
+                                  </v-card-title>
+                              </v-card>
+                          </div>
+                      </div>
+                      <div class="row justify-space-between align-items-baseline m-2">
+                          <p>Clique em avançar caso não precise de nenhuma opção acima</p>
+                          <div>
+                              <v-btn round color="primary" dark style="margin-right: 15px" v-on:click="painel_1=!painel_1">Voltar</v-btn>
+                              <v-btn round color="primary" dark style="margin-right: 15px" v-on:click="avancar">Avançar</v-btn>
+                          </div>
+                      </div>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-content>
+        </v-app>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/conf_acessibilidade.js' %}"></script>
+{% endblock %}

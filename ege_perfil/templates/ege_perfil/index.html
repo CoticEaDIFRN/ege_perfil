@@ -9,10 +9,18 @@
     <a href="{% url 'admin:index' %}">Perfil de {{ ege.user.presentation_name|safe }}</a>
 {% endblock %}
 
+{% block user_menu_options %}
+    <h5 class="p-4 text-center">
+        {% trans "Welcome, " %}<span class="text-bold">{% firstof ege.user.social_name user.get_username %}!</span>
+    </h5>
+    <v-btn flat small color="white">Configurações</v-btn>
+    <a href="/ege/perfil/acessibilidade">Acessibilidade</a>
+{% endblock %}
+
 {% block left_menu %}{% endblock %}
 
 {% block content %}
-    <div id="perfil" data-content="{{ ege.user.username }}" data-token="{{ token }}">
+    <div id="perfil" data-content="{{ ege.user.username }}">
         <v-app id="inspire">
             <v-content style="padding:0">
               <v-container fluid fill-height style="padding:0">
@@ -205,8 +213,8 @@
                                       <div class="row align-items-center ml-3">
                                           <h5>Necessidades especiais</h5>
                                           <v-btn outline fab color="blue" style="width: 2.2em;height: 2.2em" v-on:click="options_needs=!options_needs">
-                                            <v-icon>edit</v-icon>
-                                        </v-btn>
+                                              <v-icon>edit</v-icon>
+                                          </v-btn>
                                       </div>
                                       <div v-if="`${selected}`" class="d-flex row justify-space-between m-3 mb-4">
                                           <div class="text-left">

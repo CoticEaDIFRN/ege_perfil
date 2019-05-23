@@ -21,9 +21,10 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from django.urls import path
-from .views import perfil_index
+from .views import perfil_index, conf_acessibilidade
 
 
 urlpatterns = [
     path('', perfil_index),
+    path('acessibilidade', conf_acessibilidade),
 ]

@@ -46,7 +46,7 @@ const data = new Vue({
         ],
         color_bar: []
     },
-    created: function () {
+    created () {
         for (let i = 0; i <= this.cursos.length - 1; i++) {
             if (this.cursos[i].aproveitamento >= 70) { this.color_bar[i] = "success" }
             else if (this.cursos[i].aproveitamento >= 30 && this.cursos[i].aproveitamento < 70) { this.color_bar[i] = "warning" }

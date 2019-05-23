@@ -30,4 +30,14 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def perfil_index(request):
-    return render(request, template_name='ege_perfil/index.html', context={'login_url': settings.LOGIN_URL,  'token': 123})
+    if request.COOKIES.get('hide_config'):
+        if 'true' in request.COOKIES.get('hide_config'):
+            return render(request, template_name='ege_perfil/index.html', context={'login_url': settings.LOGIN_URL})
+        else:
+            return render(request, template_name='ege_perfil/painel_acessibilidade.html')
+    else:
+        return render(request, template_name='ege_perfil/painel_acessibilidade.html')
+
+
+def conf_acessibilidade(request):
+    return render(request, template_name='ege_perfil/painel_acessibilidade.html')
