@@ -1,10 +1,11 @@
-const data = new Vue({
+const page = new Vue({
     el: '#perfil',
     delimiters: ['${', '}'],
 
     data: {
         card_text: 'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.',
         photo_user: 'https://cdn3.iconfinder.com/data/icons/black-easy/512/538642-user_512x512.png',
+        edit_buttons: false,
         dialog_bio: false,
         dialog_email: false,
         switch_email: false,
@@ -23,7 +24,7 @@ const data = new Vue({
             'Perda de memória',
             'Perda de visão e cegueira'
         ],
-        accessibility: false,
+        recursos: null,
         cursos: [
             {
                 nome: 'Tecnologia e Desenvolvimento de Software',
@@ -75,6 +76,31 @@ const data = new Vue({
                   console.log(response)
               })
                 .catch(error => console.log('put error:', error))
+        },
+        edit_recursos: function () {
+            // axios({
+            //   method: 'post',
+            //   url: '/ege/perfil/acessibilidade',
+            //   data: {painel_1: false}
+            // })
+            // .then(response => {
+            //       console.log(response)
+            //   })
+            //     .catch(error => console.log('put error:', error))
+            window.location.href = "/ege/perfil/acessibilidade?painel_1=false"
         }
     }
+});
+
+Vue.component('button_edit', {
+    template: '<v-btn flat small color="white" v-on:click="show_edit_buttons">Editar dados</v-btn>',
+    methods: {
+        show_edit_buttons: function () {
+            page.edit_buttons = !page.edit_buttons
+        }
+    }
+});
+
+new Vue({
+    el: '#edit'
 });

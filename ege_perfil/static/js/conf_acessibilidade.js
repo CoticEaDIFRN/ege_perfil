@@ -7,20 +7,25 @@ const data = new Vue({
         painel_1: true,
         hide_conf: null
     },
-    updated () {
-        let d = new Date();
-        let year = d.getFullYear();
-        year += 1;
-        d.setFullYear(year);
-        let utc = d.toUTCString().replace("GMT", "UTC");
-        document.cookie = `hide_config=${this.hide_conf}; expires=${utc}`;
-    },
     created () {
+        let url = new URL(window.location.href);
+        if (url.searchParams.get("painel_1")) {
+            // window.location.href = "/ege/perfil/acessibilidade";
+            this.painel_1 = false
+        }
         // console.log(document.getElementById('acessibilidade').dataset.content);
         let cookie_value = document.cookie.slice(document.cookie.indexOf("=")+1, document.cookie.indexOf(";"));
         this.hide_conf = (cookie_value === 'true');
     },
     methods: {
+        create_cookie (name, value) {
+            let d = new Date();
+            let year = d.getFullYear();
+            year += 1;
+            d.setFullYear(year);
+            let utc = d.toUTCString().replace("GMT", "UTC");
+            document.cookie = `${name}=${value}; expires=${utc}`;
+        },
         avancar: function () {
             switch(this.radios) {
                 case "libras":
@@ -35,6 +40,7 @@ const data = new Vue({
                     break;
                 case "perfil":
                     this.radios = "";
+                    this.create_cookie('hide_config', true);
                     window.location.href = "/ege/perfil/";
                     break;
                 default:
@@ -45,5 +51,8 @@ const data = new Vue({
                     });
             }
         }
-    }
+    },
+    updated () {
+        this.create_cookie('hide_config', this.hide_conf);
+    },
 });
