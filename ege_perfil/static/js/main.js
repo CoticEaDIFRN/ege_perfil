@@ -12,17 +12,24 @@ const page = new Vue({
         switch_needs: true,
         options_needs: false,
         selected: [],
-        special_needs: [
+        special_needs_visao: [
+            'Cegueira',
+            'Baixa visão',
+            'Daltonismo',
+            'Fotofobia'
+        ],
+        special_needs_audicao: [
+            'Surdez total',
+            'Perda auditiva'
+        ],
+        special_needs_outras: [
             'Autismo',
             'Doença crônica',
-            'Daltonismo',
             'Deficiência de aprendizado',
             'Doença mental',
             'Deficiência física',
             'Distúrbios da fala e da linguagem',
-            'Perda auditiva e surdez',
             'Perda de memória',
-            'Perda de visão e cegueira'
         ],
         recursos: null,
         cursos: [

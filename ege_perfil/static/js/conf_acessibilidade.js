@@ -26,7 +26,7 @@ const data = new Vue({
             let utc = d.toUTCString().replace("GMT", "UTC");
             document.cookie = `${name}=${value}; expires=${utc}`;
         },
-        avancar: function () {
+        avancar () {
             switch(this.radios) {
                 case "libras":
                     // code block

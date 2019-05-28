@@ -39,15 +39,15 @@
                           <h3 dark class="headline mb-0 m-4">{{ege.user.presentation_name}}</h3>
                           <div class="d-flex flex-column flex-md-row align-baseline align-md-center justify-content-around mt-3 text-left text-md-center ml-3 ml-md-0">
                             <div>
-                              <h5>Matrícula</h5>
+                              <p class="topic">Matrícula</p>
                               <p>0000.0000.000-00</p>
                             </div>
                             <div v-if="{{ege.user.polo}} != null">
-                              <h5>Pólo</h5>
+                              <p class="topic">Pólo</p>
                               <p>{{ege.user.polo}}</p>
                             </div>
                             <div v-if="{{ege.user.campus}} != null">
-                              <h5>Campus</h5>
+                              <p class="topic">Campus</p>
                               <p>{{ege.user.campus}}</p>
                             </div>
                           </div>
@@ -60,7 +60,7 @@
                           <div class="d-flex row align-center m-3">
                             <div class="text-justify">
                                 <v-layout align-center justify-space-around>
-                                    <h5>Biografia</h5>
+                                    <p class="topic">Biografia</p>
                                     <v-dialog v-model="dialog_bio" persistent max-width="600px" v-if="edit_buttons">
                                         <v-btn slot="activator" outline fab color="blue" style="width: 2.2em;height: 2.2em">
                                             <v-icon>edit</v-icon>
@@ -104,7 +104,7 @@
                             <div class="text-left w-100">
                                 <v-layout align-baseline justify-space-between>
                                     <div class="d-flex align-center">
-                                        <h5>E-mail</h5>
+                                        <p class="topic">E-mail</p>
                                         <v-dialog v-model="dialog_email" persistent max-width="600px" v-if="edit_buttons">
                                             <v-btn slot="activator" outline fab color="blue" style="width: 2.2em;height: 2.2em">
                                                 <v-icon>edit</v-icon>
@@ -177,7 +177,7 @@
                               <div class="d-flex row justify-space-between ">
                                   <div class="text-left">
                                       <div class="row align-items-center ml-3">
-                                          <h5>Recurso de acessibilidade</h5>
+                                          <p class="topic">Recurso de acessibilidade</p>
                                       </div>
                                       <div v-if="recursos" class="d-flex row justify-space-between m-3 mb-4">
                                           <div class="text-left">
@@ -197,8 +197,8 @@
                           <div class="m-3">
                               <div class="d-flex row justify-space-between ">
                                   <div class="text-left">
-                                      <div class="row align-items-center ml-3">
-                                          <h5>Necessidades especiais</h5>
+                                      <div class="row align-items-center ml-3 mb-3">
+                                          <p class="topic">Necessidades especiais</p>
                                           <v-btn outline fab color="blue" style="width: 2.2em;height: 2.2em" v-on:click="options_needs=!options_needs" v-if="edit_buttons">
                                               <v-icon>edit</v-icon>
                                           </v-btn>
@@ -218,13 +218,38 @@
                                     </v-layout>
                                   </div>
                               </div>
-                              <div v-if="options_needs">
-                                  <div class="row">
+                              <div id="opt_needs" v-if="options_needs">
+
+                                  <!--VISÁO-->
+                                  <h5 class="text-left">Visão</h5>
+                                  <div class="row mt-2">
                                       <div class="col-5">
-                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` < `${special_needs.length/2}`" class="align-center" style="height: 3em"></v-checkbox>
+                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs_visao" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` < `${special_needs_visao.length/2}`" class="align-center mt-0"></v-checkbox>
                                       </div>
                                       <div class="col-5">
-                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` >= `${special_needs.length/2}`" class="align-center" style="height: 3em"></v-checkbox>
+                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs_visao" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` >= `${special_needs_visao.length/2}`" class="align-center mt-0"></v-checkbox>
+                                      </div>
+                                  </div>
+
+                                  <!--AUDIÇÃO-->
+                                  <h5 class="text-left">Audição</h5>
+                                  <div class="row mt-2">
+                                      <div class="col-5">
+                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs_audicao" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` < `${special_needs_audicao.length/2}`" class="align-center mt-0"></v-checkbox>
+                                      </div>
+                                      <div class="col-5">
+                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs_audicao" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` >= `${special_needs_audicao.length/2}`" class="align-center mt-0"></v-checkbox>
+                                      </div>
+                                  </div>
+
+                                  <!--OUTRAS-->
+                                  <h5 class="text-left">Outras</h5>
+                                  <div class="row mt-2">
+                                      <div class="col-5">
+                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs_outras" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` < `${special_needs_outras.length/2}`" class="align-center mt-0"></v-checkbox>
+                                      </div>
+                                      <div class="col-5">
+                                          <v-checkbox v-model="selected" v-for="(spneed, index) in special_needs_outras" :label="`${spneed}`" :value="`${spneed}`" v-if="`${index}` >= `${special_needs_outras.length/2}`" class="align-center mt-0"></v-checkbox>
                                       </div>
                                   </div>
                                   <div class="row justify-content-end">
@@ -240,7 +265,7 @@
                         <div style="width:100%">
                           <div class="d-flex row align-center m-3">
                             <div class="text-left w-100">
-                              <h5>Cursos inscritos</h5>
+                              <p class="topic">Cursos inscritos</p>
 
                               <v-card class="mt-2" v-for="(curso, index) in cursos">
                                 <v-card-title>
