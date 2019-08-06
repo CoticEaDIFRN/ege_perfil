@@ -21,10 +21,13 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from django.urls import path
-from .views import perfil_index, conf_acessibilidade
+from .views import perfil_index, conf_acessibilidade, UserBiografyService, UserEmailService
+from django.views.decorators.csrf import csrf_exempt
 
 
 urlpatterns = [
     path('', perfil_index),
+    path('biografy/', csrf_exempt(UserBiografyService.as_view())),
+    path('email/', csrf_exempt(UserEmailService.as_view())),
     path('acessibilidade', conf_acessibilidade),
 ]

@@ -3,19 +3,19 @@ const data = new Vue({
     delimiters: ['${', '}'],
 
     data: {
-        radios: '',
         painel_1: true,
-        hide_conf: null
+        checkbox: true,
+        rec_baixa_visao: false,
+        rec_legendagem: false,
+        rec_config_cor: false,
     },
     created () {
         let url = new URL(window.location.href);
         if (url.searchParams.get("painel_1")) {
-            // window.location.href = "/ege/perfil/acessibilidade";
             this.painel_1 = false
         }
-        // console.log(document.getElementById('acessibilidade').dataset.content);
-        let cookie_value = document.cookie.slice(document.cookie.indexOf("=")+1, document.cookie.indexOf(";"));
-        this.hide_conf = (cookie_value === 'true');
+    },
+    updated () {
     },
     methods: {
         create_cookie (name, value) {
@@ -26,33 +26,25 @@ const data = new Vue({
             let utc = d.toUTCString().replace("GMT", "UTC");
             document.cookie = `${name}=${value}; expires=${utc}`;
         },
-        avancar () {
-            switch(this.radios) {
+        avancar: function (switch_painel1) {
+            switch(switch_painel1) {
                 case "libras":
                     // code block
                     break;
                 case "audio_descricao":
                     // code block
                     break;
-                case "outro":
-                    this.painel_1 = !this.painel_1;
-                    this.radios = "perfil";
-                    break;
                 case "perfil":
-                    this.radios = "";
                     this.create_cookie('hide_config', true);
+                    this.create_cookie('recurso_bvisao', this.rec_baixa_visao);
+                    this.create_cookie('recurso_leg', this.rec_legendagem);
+                    this.create_cookie('recurso_cfcor', this.rec_config_cor);
                     window.location.href = "/ege/perfil/";
                     break;
                 default:
-                    swal({
-                      title: 'Marque uma das opções!',
-                      text: '',
-                      icon: 'warning',
-                    });
+                    this.painel_1 = !this.painel_1;
+                    break;
             }
         }
-    },
-    updated () {
-        this.create_cookie('hide_config', this.hide_conf);
     },
 });

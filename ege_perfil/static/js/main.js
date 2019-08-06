@@ -5,13 +5,15 @@ const page = new Vue({
     data: {
         card_text: 'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.',
         photo_user: 'https://cdn3.iconfinder.com/data/icons/black-easy/512/538642-user_512x512.png',
-        edit_buttons: false,
+        edit_buttons: true,
         dialog_bio: false,
         dialog_email: false,
         switch_email: false,
         switch_needs: true,
         options_needs: false,
         selected: [],
+        biografy: '',
+        email: [],
         special_needs_visao: [
             'Cegueira',
             'Baixa visão',
@@ -60,29 +62,62 @@ const page = new Vue({
             else if (this.cursos[i].aproveitamento >= 30 && this.cursos[i].aproveitamento < 70) { this.color_bar[i] = "warning" }
             else this.color_bar[i] = "error"
         }
+        let rec = document.cookie.slice(document.cookie.indexOf("=")+1, document.cookie.indexOf(";"));
+        let rec2 = document.cookie.indexOf("bvisao=")+1;
+        // this.hide_conf = (rec === 'true');
+        console.log(document.cookie, rec, rec2);
+
+        let ege_user = JSON.parse(document.getElementById('perfil').dataset.content);
+        console.log(ege_user);
+
+        axios({
+          method: 'get',
+          url: `../acesso/api/v1/users/${ege_user}`
+        })
+        .then(response => {
+            this.biografy = response.data.biografy;
+            this.email = [
+                {tipo: 'pessoal', data: response.data.email},
+                {tipo: 'corporativo', data: response.data.enterprise_email},
+                {tipo: 'academico', data: response.data.academic_email},
+                {tipo: 'escolar', data: response.data.scholar_email}
+            ];
+            console.log(response.data)
+        })
+        .catch(error => console.log('put error:', error))
     },
+    // hide_config=true; recurso_bvisao=true; recurso_leg=true; recurso_cfcor=true; csrftoken=BZNgFGO7YVzjNbT9hQumgAB34TdL3HvOsrR2b1ET39J1MQdw2oKUQumFDj69fBsH
     methods: {
         save_bio: function () {
-            let username = document.getElementById('perfil').dataset.content;
-            let token = document.getElementById('perfil').dataset.token;
             this.dialog_bio = false;
 
-            // this.$http.get(`api/v1/users/${username}/`)
-            //     .then(response => console.log(response))
-            //     .catch(error => console.log(error))
+            axios({
+              method: 'post',
+              url: './biografy/',
+              data: {biografy: document.getElementById('bio').value},
+            })
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => console.log('put error:', error))
+        },
+        save_email: function () {
+            this.dialog_email = false;
 
             axios({
-              method: 'put',
-              url: `http://localhost/ege/acesso/api/v1/users/${username}`,
-              data: {biografy: document.getElementById('bio').value},
-              headers: {
-                Authorization: token
-              }
+              method: 'post',
+              url: './email/',
+              data: [
+                  {email: document.getElementById(`${this.email[0].tipo}`)},
+                  {enterprise_email: document.getElementById(`${this.email[1].tipo}`)},
+                  {academic_email: document.getElementById(`${this.email[2].tipo}`)},
+                  {scholar_email: document.getElementById(`${this.email[3].tipo}`)}
+              ],
             })
-              .then(response => {
-                  console.log(response)
-              })
-                .catch(error => console.log('put error:', error))
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => console.log('put error:', error))
         },
         edit_recursos: function () {
             // axios({
@@ -99,15 +134,11 @@ const page = new Vue({
     }
 });
 
-Vue.component('button_edit', {
-    template: '<v-btn flat small color="white" v-on:click="show_edit_buttons">Editar dados</v-btn>',
-    methods: {
-        show_edit_buttons: function () {
-            page.edit_buttons = !page.edit_buttons
-        }
-    }
-});
-
-new Vue({
-    el: '#edit'
-});
+// Vue.component('button_edit', {
+//     template: '<v-btn flat small color="white" v-on:click="show_edit_buttons">Editar dados</v-btn>',
+//     methods: {
+//         show_edit_buttons: function () {
+//             page.edit_buttons = !page.edit_buttons
+//         }
+//     }
+// });

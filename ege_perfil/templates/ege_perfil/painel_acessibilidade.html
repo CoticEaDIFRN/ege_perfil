@@ -27,44 +27,45 @@
                 <v-layout align-center justify-center column>
 
                   <v-flex class="row w-100 justify-content-end" v-if="painel_1">
-                      <v-radio-group row v-model="radios" :mandatory="false" style="height: 20em">
+                      <v-radio-group row v-model="radios" :mandatory="false" style="height: 8em">
                           <div class="flex-column col">
                               <!--AUDIO-DESCRIÇÃO-->
                               <v-card class="elevation-12 m-2 card_check" style="height:50%">
-                                  <v-card-title primary-title>
+                                  <v-card-title primary-title v-on:click="avancar('audio_descricao')">
                                       <div>
                                           <h3 class="headline">Ledor de tela</h3>
                                           <p class="text-left">Esta página é dedicada a identificar que tipo de necessidade especial nossos usuários portam. Se você utiliza ledor de tela, por favor, selecione esta opção e clique em avançar. Você será redirecionado à página inicial do Moodle, adaptada para ledor de tela.</p>
                                       </div>
                                   </v-card-title>
-                                  <v-radio class="radio_conf" value="audio_descricao"></v-radio>
+                                  <!--<v-radio class="radio_conf" value="audio_descricao"></v-radio>-->
                               </v-card>
 
                               <!--OUTRO-->
                               <v-card class="elevation-12 m-2 card_check" style="height:50%">
-                                  <v-card-title primary-title>
+                                  <v-card-title primary-title v-on:click="avancar('outro')">
                                       <div>
                                           <h3 class="headline">Possui outra ou nenhuma necessidade especial</h3>
                                           <p class="text-left">Se você não precisar de nenhuma dessas opções, selecione esta e clique em avançar.</p>
                                       </div>
                                   </v-card-title>
-                                  <v-radio class="radio_conf" value="outro"></v-radio>
+                                  <!--<v-radio class="radio_conf" value="outro"></v-radio>-->
                               </v-card>
                           </div>
                           <div class="col">
                               <!--LIBRAS-->
-                              <v-card class="elevation-12 m-2 card_check" style="height:100%">
+                              <v-card class="elevation-12 m-2 card_check" style="height:100%" v-on:click="avancar('libras')">
                                   <iframe src="https://www.youtube.com/embed/bA9wCr7YEkE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 100%;height: 90%"></iframe>
-                                  <v-radio class="radio_conf" value="libras"></v-radio>
+                                  <!--<v-radio class="radio_conf" value="libras"></v-radio>-->
                               </v-card>
                           </div>
                       </v-radio-group>
                       <div class="row w-100 justify-content-between" style="height: 4em">
                           <div class="d-flex flex-row align-items-end">
-                              <v-checkbox v-model="hide_conf"></v-checkbox>
-                              <p>Marque esta opção para pular estas configurações no próximo login, você poderá acessá-las novamente através do menu de usuário</p>
+                              <!--<v-checkbox v-model="hide_conf"></v-checkbox>-->
+                              <!--<p>Marque esta opção para pular estas configurações no próximo login, você poderá acessá-las novamente através do menu de usuário</p>-->
+                              <p>Estas configurações são vistas apenas no seu primeiro acesso, você poderá acessá-las novamente através do menu de usuário</p>
                           </div>
-                          <v-btn round color="primary" dark style="margin-right: 15px" v-on:click="avancar">Avançar</v-btn>
+                          <!--<v-btn round color="primary" dark style="margin-right: 15px" v-on:click="avancar">Avançar</v-btn>-->
                       </div>
                   </v-flex>
 
@@ -73,37 +74,46 @@
                       <div class="row">
                           <div class="col">
                               <!--BAIXA VISÃO-->
-                              <v-card class="elevation-12 m-2 card_check">
+                              <v-card class="elevation-12 m-2 card_check" style="cursor: auto">
                                   <v-card-title primary-title>
-                                      <h3 class="headline w-100 text-left">Baixa visão</h3>
+                                      <div class="d-flex align-items-center">
+                                          <v-checkbox v-model="rec_baixa_visao" class="m-0"></v-checkbox>
+                                          <h3 class="headline w-100 text-left">Baixa visão</h3>
+                                      </div>
                                       <p class="text-left">Clique aqui se tiver baixa visão.</p>
                                   </v-card-title>
                               </v-card>
                           </div>
                           <div class="col">
                               <!--LEGENDAGEM-->
-                              <v-card class="elevation-12 m-2 card_check">
+                              <v-card class="elevation-12 m-2 card_check" style="cursor: auto">
                                   <v-card-title primary-title>
-                                      <h3 class="headline w-100 text-left">Legendagem</h3>
+                                      <div class="d-flex align-items-center">
+                                          <v-checkbox v-model="rec_legendagem" class="m-0"></v-checkbox>
+                                          <h3 class="headline w-100 text-left">Legendagem</h3>
+                                      </div>
                                       <p class="text-left">Clique aqui se precisar deste recurso.</p>
                                   </v-card-title>
                               </v-card>
                           </div>
                           <div class="col">
                               <!--CONFIGURAÇÕES DE COR-->
-                              <v-card class="elevation-12 m-2 card_check">
+                              <v-card class="elevation-12 m-2 card_check" style="cursor: auto">
                                   <v-card-title primary-title>
-                                      <h3 class="headline w-100 text-left">Configurações de cor</h3>
+                                      <div class="d-flex align-items-center">
+                                          <v-checkbox v-model="rec_config_cor" class="m-0"></v-checkbox>
+                                          <h3 class="headline w-100 text-left">Configurações de cor</h3>
+                                      </div>
                                       <p class="text-left">Clique aqui se possuir algum tipo de daltonismo, fotofobia ou desconforto com alguma cor.</p>
                                   </v-card-title>
                               </v-card>
                           </div>
                       </div>
                       <div class="row justify-space-between align-items-baseline m-2">
-                          <p>Clique em avançar caso não precise de nenhuma opção acima</p>
+                          <p>Não selecione nenhuma opção se não precisar ou desejar qualquer uma delas.</p>
                           <div>
                               <v-btn round color="primary" dark style="margin-right: 15px" v-on:click="painel_1=!painel_1">Voltar</v-btn>
-                              <v-btn round color="primary" dark style="margin-right: 15px" v-on:click="avancar">Avançar</v-btn>
+                              <v-btn round color="primary" dark style="margin-right: 15px" v-on:click="avancar('perfil')">Avançar</v-btn>
                           </div>
                       </div>
                   </v-flex>

@@ -13,10 +13,10 @@
     <h5 class="p-4 text-center">
         {% trans "Welcome, " %}<span class="text-bold">{% firstof ege.user.social_name user.get_username %}!</span>
     </h5>
-    <div id="edit">
-        <button_edit></button_edit>
-    </div>
     <a href="/ege/perfil/acessibilidade">Acessibilidade</a>
+    <!--<div id="edit">-->
+        <!--<button_edit></button_edit>-->
+    <!--</div>-->
 {% endblock %}
 
 {% block left_menu %}{% endblock %}
@@ -59,7 +59,7 @@
                         <div style="width:100%">
                           <div class="d-flex row align-center m-3">
                             <div class="text-justify">
-                                <v-layout align-center justify-space-around>
+                                <v-layout align-center>
                                     <p class="topic">Biografia</p>
                                     <v-dialog v-model="dialog_bio" persistent max-width="600px" v-if="edit_buttons">
                                         <v-btn slot="activator" outline fab color="blue" style="width: 2.2em;height: 2.2em">
@@ -77,7 +77,7 @@
                                                       id="bio"
                                                       solo
                                                       full-width
-                                                      value="{{ege.user.biografy}}"
+                                                      v-model="biografy"
                                                     ></v-textarea>
                                                   </v-flex>
                                                 </v-layout>
@@ -91,7 +91,7 @@
                                         </v-card>
                                     </v-dialog>
                                 </v-layout>
-                                <p>{{ege.user.biografy}}</p>
+                                <p>${biografy}</p>
                             </div>
                           </div>
                         </div>
@@ -116,28 +116,11 @@
                                                 <v-card-text>
                                                   <v-container grid-list-md>
                                                     <v-layout wrap>
-                                                      <v-flex xs12>
+                                                      <v-flex xs12 v-for="email in email">
                                                         <v-text-field
-                                                                label="Pessoal"
-                                                                value="{{ege.user.personal_email}}"
-                                                        ></v-text-field>
-                                                      </v-flex>
-                                                      <v-flex xs12>
-                                                        <v-text-field
-                                                                label="Acadêmico"
-                                                                value="{{ege.user.academic_email}}"
-                                                        ></v-text-field>
-                                                      </v-flex>
-                                                      <v-flex xs12>
-                                                        <v-text-field
-                                                                label="Escolar"
-                                                                value="{{ege.user.scholar_email}}"
-                                                        ></v-text-field>
-                                                      </v-flex>
-                                                      <v-flex xs12>
-                                                        <v-text-field
-                                                                label="Corporativo"
-                                                                value="{{ege.user.enterprise_email}}"
+                                                                :id="`${ email.tipo }`"
+                                                                :label="`${ email.tipo }`"
+                                                                :value="`${ email.data }`"
                                                         ></v-text-field>
                                                       </v-flex>
                                                     </v-layout>
@@ -161,10 +144,7 @@
                                     </div>
 
                                 </v-layout>
-                                <p>Email pessoal: {{ege.user.personal_email}}</p>
-                                <p>Email acadêmico: {{ege.user.academic_email}}</p>
-                                <p>Email escolar: {{ege.user.scholar_email}}</p>
-                                <p>Email corporativo: {{ege.user.enterprise_email}}</p>
+                                <p v-for="email in email">Email ${ email.tipo }: ${ email.data }</p>
                             </div>
                           </div>
                         </div>
