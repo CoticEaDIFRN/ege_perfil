@@ -28,7 +28,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 # from ege_acesso.views.authorize_view import auth_token
 from django.views import View
-from ege_utils.http import get_json, post, post_json
+from sc4net import get_json, post, post_json
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import json
