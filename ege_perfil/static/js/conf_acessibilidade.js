@@ -27,23 +27,27 @@ const data = new Vue({
             document.cookie = `${name}=${value}; expires=${utc}`;
         },
         avancar: function (switch_painel1) {
+            console.log(switch_painel1);
             switch(switch_painel1) {
                 case "libras":
+                    alert('LIBRAS');
                     // code block
                     break;
-                case "audio_descricao":
+                case "ledor":
+                    alert('ledor');
                     // code block
                     break;
-                case "perfil":
-                    this.create_cookie('hide_config', true);
-                    this.create_cookie('recurso_bvisao', this.rec_baixa_visao);
-                    this.create_cookie('recurso_leg', this.rec_legendagem);
-                    this.create_cookie('recurso_cfcor', this.rec_config_cor);
-                    window.location.href = "/ege/perfil/";
+                case "outro":
+                    alert('outro');
+                    // this.create_cookie('hide_config', true);
+                    // this.create_cookie('recurso_bvisao', this.rec_baixa_visao);
+                    // this.create_cookie('recurso_leg', this.rec_legendagem);
+                    // this.create_cookie('recurso_cfcor', this.rec_config_cor);
+                    // window.location.href = "/ege/perfil/";
                     break;
-                default:
-                    this.painel_1 = !this.painel_1;
-                    break;
+                // default:
+                //     this.painel_1 = !this.painel_1;
+                //     break;
             }
         }
     },
