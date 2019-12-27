@@ -3,10 +3,12 @@
 
 {% block title %}Acessibilidade{% endblock %}
 
-{% block extrastyle %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+{% endblock %}
 
 {% block page-title %}
-    <a href="/ege/perfil/acessibilidade">Configurações de acessibilidade para necessidades especiais</a>
+    <a href="/ege/perfil/acessibilidade">Configurações de acessibilidade</a>
 {% endblock %}
 
 {% block user_menu_options %}
@@ -20,55 +22,26 @@
 
 {% block content %}
     <div id="acessibilidade">
-        <v-app id="inspire" class="flex-column">
-            <h5 class="text-left" style="margin-left: 25px">Configurações de Acessibilidade para Necessidades Especiais</h5>
+        <v-app id="inspire">
+            <h2 class="text-left" style="margin: 25px">Configurações de acessibilidade para necessidades especiais</h2>
+            <div class="mi_card" style="margin: 1.5rem !important; padding: 1rem;">
+                <h3>Informação</h3>
+                <p style="font-size: 16px; text-align: left;">Esta página é dedicada a identificar que tipo de necessidade especial você porta, e assim configurar nossos ambientes virtuais para melhor lhe atender quanto a estas necessidades. Para configurar serão feitas algumas perguntas a você e ao final as configurações serão salvas. Não se preocupe, estas configurações poderão ser alteradas a qualquer momento, para isto você poderá acessá-las no seu perfil, disponível no canto superior direito, no 'menu usuário'.</p>
+            </div>
+            <div class="card_list">
+                <div class="elevation-12 m-2 mi_card ledor" v-on:click="avancar('ledor')">
+                    <h3>Ledor de tela</h3>
+                    <p>Se você utiliza ledor de tela, por favor, selecione esta opção para avançar.</p>
+                </div>
+                <div class="elevation-12 m-2 mi_card libras" v-on:click="avancar('libras')"><img src="https://media.giphy.com/media/kefcID8P0rsMIWOGoQ/giphy.gif"/></div>
+                <div class="elevation-12 m-2 mi_card nada" v-on:click="avancar('outro')">
+                    <h3>Possui outra ou nenhuma necessidade especial</h3>
+                    <p>Se você não precisar de nenhuma dessas opções, selecione esta opção para avançar.</p>
+                </div>  
+            </div>            
             <v-content style="padding:0">
-              <v-container fluid fill-height style="padding:0">
-                <v-layout align-center justify-center column>
-
-                  <v-flex class="row w-100 justify-content-end" v-if="painel_1">
-                      <v-radio-group row v-model="radios" :mandatory="false" style="height: 8em">
-                          <div class="flex-column col">
-                              <!--AUDIO-DESCRIÇÃO-->
-                              <v-card class="elevation-12 m-2 card_check" style="height:50%">
-                                  <v-card-title primary-title v-on:click="avancar('audio_descricao')">
-                                      <div>
-                                          <h3 class="headline">Ledor de tela</h3>
-                                          <p class="text-left">Esta página é dedicada a identificar que tipo de necessidade especial nossos usuários portam. Se você utiliza ledor de tela, por favor, selecione esta opção e clique em avançar. Você será redirecionado à página inicial do Moodle, adaptada para ledor de tela.</p>
-                                      </div>
-                                  </v-card-title>
-                                  <!--<v-radio class="radio_conf" value="audio_descricao"></v-radio>-->
-                              </v-card>
-
-                              <!--OUTRO-->
-                              <v-card class="elevation-12 m-2 card_check" style="height:50%">
-                                  <v-card-title primary-title v-on:click="avancar('outro')">
-                                      <div>
-                                          <h3 class="headline">Possui outra ou nenhuma necessidade especial</h3>
-                                          <p class="text-left">Se você não precisar de nenhuma dessas opções, selecione esta e clique em avançar.</p>
-                                      </div>
-                                  </v-card-title>
-                                  <!--<v-radio class="radio_conf" value="outro"></v-radio>-->
-                              </v-card>
-                          </div>
-                          <div class="col">
-                              <!--LIBRAS-->
-                              <v-card class="elevation-12 m-2 card_check" style="height:100%" v-on:click="avancar('libras')">
-                                  <iframe src="https://www.youtube.com/embed/bA9wCr7YEkE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 100%;height: 90%"></iframe>
-                                  <!--<v-radio class="radio_conf" value="libras"></v-radio>-->
-                              </v-card>
-                          </div>
-                      </v-radio-group>
-                      <div class="row w-100 justify-content-between" style="height: 4em">
-                          <div class="d-flex flex-row align-items-end">
-                              <!--<v-checkbox v-model="hide_conf"></v-checkbox>-->
-                              <!--<p>Marque esta opção para pular estas configurações no próximo login, você poderá acessá-las novamente através do menu de usuário</p>-->
-                              <p>Estas configurações são vistas apenas no seu primeiro acesso, você poderá acessá-las novamente através do menu de usuário</p>
-                          </div>
-                          <!--<v-btn round color="primary" dark style="margin-right: 15px" v-on:click="avancar">Avançar</v-btn>-->
-                      </div>
-                  </v-flex>
-
+              <v-container fluid style="padding:0">
+                <v-layout align-center justify-  column>
                   <!--PAINEL OUTRAS NECESSIDADES-->
                   <v-flex class="w-100 justify-content-end mt-5" v-if="!painel_1">
                       <div class="row">
