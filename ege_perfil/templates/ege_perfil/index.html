@@ -1,17 +1,14 @@
 {% extends "ege_theme/base.html" %}
 {% load i18n static %}
 
-{% block title %}Perfil{% endblock %}
-
 {% block extrastyle %}<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">{% endblock %}
 
-{% block page-title %}
-    <a href="{% url 'admin:index' %}">Perfil de {{ ege.user.presentation_name|safe }}</a>
-{% endblock %}
+{% block title %}Perfil{% endblock %}
+{% block page-title %}<a href="{% url 'admin:index' %}">Perfil de {{ ege.user.presentation_name|safe }}</a>{% endblock %}
 
 {% block user_menu_options %}
     <h5 class="p-4 text-center">
-        {% trans "Welcome, " %}<span class="text-bold">{% firstof ege.user.social_name user.get_username %}!</span>
+        {% trans "Welcome" %}, <span class="text-bold">{% firstof ege.user.social_name user.get_username %}!</span>
     </h5>
     <a href="/ege/perfil/acessibilidade">Acessibilidade</a>
     <!--<div id="edit">-->
