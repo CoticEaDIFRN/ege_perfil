@@ -42,8 +42,18 @@ def perfil_index(request):
         return HttpResponseRedirect('/ege/perfil/acessibilidade')
 
 
-def conf_acessibilidade(request):
-    return render(request, template_name='ege_perfil/painel_acessibilidade.html')
+class AcessibilidadeService(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, template_name='ege_perfil/painel_acessibilidade.html')
+
+    @method_decorator(csrf_exempt)
+    def post(self, request, *args, **kwargs):
+        print("Estou aqui.")
+        url = settings.EGE_ACESSO_JWT_ROOT + 'api/v1/users/%s/biografy/' % request.user.username
+        data = {"biografy": json.loads(request.body)["biografy"]}
+        result = post_json(url, data)
+        return HttpResponse('{"successs": true}')
 
 
 class UserBiografyService(View):
