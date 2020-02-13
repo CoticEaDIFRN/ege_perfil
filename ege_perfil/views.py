@@ -1,26 +1,4 @@
-"""
-MIT License
 
-Copyright (c) 2018 IFRN - Campus EaD
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
 
 from django.conf import settings
 from django.shortcuts import render
@@ -50,7 +28,7 @@ class AcessibilidadeService(View):
     @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
         print("Estou aqui.")
-        url = settings.EGE_ACESSO_JWT_ROOT + 'api/v1/users/%s/biografy/' % request.user.username
+        url = settings.SUAP_EAD_ACESSO_JWT_ROOT + 'api/v1/users/%s/biografy/' % request.user.username
         data = {"biografy": json.loads(request.body)["biografy"]}
         result = post_json(url, data)
         return HttpResponse('{"successs": true}')
@@ -59,13 +37,13 @@ class AcessibilidadeService(View):
 class UserBiografyService(View):
 
     def get(self, request, *args, **kwargs):
-        url = settings.EGE_ACESSO_JWT_ROOT + 'api/v1/users/%s/biografy/' % request.user.username
+        url = settings.SUAP_EAD_ACESSO_JWT_ROOT + 'api/v1/users/%s/biografy/' % request.user.username
         result = get_json(url)
         return HttpResponse('{"biografy": "%s"}' % result.biografy)
 
     @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
-        url = settings.EGE_ACESSO_JWT_ROOT + 'api/v1/users/%s/biografy/' % request.user.username
+        url = settings.SUAP_EAD_ACESSO_JWT_ROOT + 'api/v1/users/%s/biografy/' % request.user.username
         data = {"biografy": json.loads(request.body)["biografy"]}
         result = post_json(url, data)
         return HttpResponse('{"successs": true}')
@@ -74,13 +52,13 @@ class UserBiografyService(View):
 class UserEmailService(View):
 
     def get(self, request, *args, **kwargs):
-        url = settings.EGE_ACESSO_JWT_ROOT + 'api/v1/users/%s/email/' % request.user.username
+        url = settings.SUAP_EAD_ACESSO_JWT_ROOT + 'api/v1/users/%s/email/' % request.user.username
         result = get_json(url)
         return HttpResponse('{"email": "%s"}' % result.email)
 
     @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
-        url = settings.EGE_ACESSO_JWT_ROOT + 'api/v1/users/%s/email/' % request.user.username
+        url = settings.SUAP_EAD_ACESSO_JWT_ROOT + 'api/v1/users/%s/email/' % request.user.username
         data = {"email": json.loads(request.body)["email"]}
         result = post_json(url, data)
         return HttpResponse('{"successs": true}')
